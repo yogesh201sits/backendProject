@@ -15,7 +15,8 @@ async function userRegisterController(req,res){
         const user = await userModel.create({
             email:email,username:username,password:password
         });
-        const token = jwt.sign({email,username},process.env.JWT_SECRET,{expiresIn:"3d"});
+        let id = user._id;
+        const token = jwt.sign({id,email,username},process.env.JWT_SECRET,{expiresIn:"3d"});
         res.cookie("token",token);
         res.status(201).json({
             user:{
@@ -48,7 +49,7 @@ async function userLoginController(req, res) {
         if(!isValid){
             return res.status(401).json({message:"email or password is wrong"});
         }
-        const token = jwt.sign({email:user.email,username:user.username},process.env.JWT_SECRET,{expiresIn:"3d"});
+        const token = jwt.sign({id:user._id,email:user.email,username:user.username},process.env.JWT_SECRET,{expiresIn:"3d"});
         res.cookie("token",token);
         res.status(200).json({
             user:{
