@@ -10,7 +10,7 @@ const ledgerSchema = new Schema({
         immutable:true
     },
     amount:{
-        type:Nummber,
+        type:Number,
         required:true,
         immutable:true
     },

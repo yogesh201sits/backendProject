@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
-const {authMiddleware} = require("../middleware/auth.middleware.js")
-const {createTransaction} =  require("../controllers/transaction.controller.js")
+const express = require("express");
+const {authMiddleware,authSystemUserMiddleware} = require("../middleware/auth.middleware.js")
+const {createTransaction,createInitialFundsTransaction} =  require("../controllers/transaction.controller.js")
 
-const router = mongoose.router();
+const router = express.Router();
 
 router.post("/",authMiddleware,createTransaction);
+
+router.post("/system/initial-funds", authSystemUserMiddleware, createInitialFundsTransaction)
 
 module.exports = router;

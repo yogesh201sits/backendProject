@@ -15,6 +15,7 @@ const transactionSchema = new Schema({
         index:true
     },
     status:{
+        type:String,
         enum:{
             values:["PENDING","COMPLETED","FAILED","REVERSED"]
         },
@@ -29,3 +30,4 @@ const transactionSchema = new Schema({
 },{timestamps:true});
 
 const transactionModel = new mongoose.model("transaction",transactionSchema);
+module.exports = transactionModel;
